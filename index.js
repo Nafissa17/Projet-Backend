@@ -1,11 +1,25 @@
 const express = require('express');
+const welcomeController = require('./controllers/welcome');
+const testController = require('./controllers/qcm');
+const {listQcmsConst, listQcmsFunc} = require('./controllers/list');
+
 const app = express();
+
 const port = 3000;
-app.get('/', (req, res) => {
-    res.send('Hello World');
-    });
-    
+
 app.use(express.static('public'));
-app.listen(port, () => {
-console.log(`Listening on http://localhost:${port}`)
-});
+
+app.get('/', welcomeController);
+
+app.get('/qcm', testController);
+
+app.get('/list', listQcmsFunc);
+
+app.get('/list2', listQcmsConst);
+
+app.listen(
+    port,
+    () => {
+        console.log(`Listening on http://localhost:${port}`);
+    }
+);
